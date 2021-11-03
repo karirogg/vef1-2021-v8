@@ -48,7 +48,10 @@ const games = [];
 function playRound(player) {
     // Komumst að því hvað tölva spilaði og athugum stöðu leiks
     let computer = computerPlay();
-    let result = checkGame(player.toString(), computer.toString())
+    let result = checkGame(player.toString(), computer.toString());
+
+    if(result === 1) playerWins++;
+    if(result === -1) computerWins++;
 
     // Uppfærum result glugga áður en við sýnum, hér þarf að importa falli
     updateResultScreen({
@@ -63,20 +66,20 @@ function playRound(player) {
 
     // Uppfærum teljara ef ekki jafntefli, verðum að gera eftir að við setjum titil
     if(result != 0) currentRound++;
-    if(result == 1) playerWins++;
-    if(result == -1) computerWins++;
+
+    document.querySelector('.result__status').textContent = `Staðan er ${playerWins} – ${computerWins}`;
 
     // Ákveðum hvaða takka skuli sýna
     const finishGameButton = document.querySelector('button.finishGame');
     const nextRoundButton = document.querySelector('button.nextRound');
 
-    finishGameButton.classList.add("hidden");
-    nextRoundButton.classList.add("hidden");
+    finishGameButton.classList.add('hidden');
+    nextRoundButton.classList.add('hidden');
 
     if(playerWins == (totalRounds+1)/2 || computerWins == (totalRounds+1)/2) {
-        finishGameButton.classList.remove("hidden");
+        finishGameButton.classList.remove('hidden');
     } else {
-        nextRoundButton.classList.remove("hidden");
+        nextRoundButton.classList.remove('hidden');
     }
 
     // Sýnum niðurstöðuskjá
@@ -94,7 +97,7 @@ function round(e) {
         totalRounds = proposedBestOf;
         currentRound = 1;
     }
-    else console.error("Ólöglegur fjöldi leikja.");
+    else console.error('Ólöglegur fjöldi leikja.');
 
     show('play');
 }
@@ -131,20 +134,20 @@ function finishGame() {
     if(playerWins > computerWins) totalWins++;
 
     // Bætum leik við lista af spiluðum leikjum
-    const gamesList = document.querySelector(".games__list");
+    const gamesList = document.querySelector('.games__list');
 
     const newestGame = games[games.length-1];
 
-    const gameDescription = el("li", `${newestGame.win ? "Þú vannst" : "Tölva vann"} ${newestGame.player} – ${newestGame.computer}`);
+    const gameDescription = el('li', `${newestGame.win ? 'Þú vannst' : 'Tölva vann'} ${newestGame.player} – ${newestGame.computer}`);
     gamesList.appendChild(gameDescription);
 
-    document.querySelector(".games__played").textContent = games.length;
+    document.querySelector('.games__played').textContent = games.length;
 
-    document.querySelector(".games__wins").textContent = totalWins;
-    document.querySelector(".games__winratio").textContent = ((totalWins/games.length)*100).toFixed(2);
+    document.querySelector('.games__wins').textContent = totalWins;
+    document.querySelector('.games__winratio').textContent = ((totalWins/games.length)*100).toFixed(2);
 
-    document.querySelector(".games__losses").textContent = games.length - totalWins;
-    document.querySelector(".games__lossratio").textContent = ((1 - totalWins/games.length)*100).toFixed(2);
+    document.querySelector('.games__losses').textContent = games.length - totalWins;
+    document.querySelector('.games__lossratio').textContent = ((1 - totalWins/games.length)*100).toFixed(2);
 
     // Núllstillum breytur
     playerWins = 0;
