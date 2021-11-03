@@ -141,10 +141,10 @@ function finishGame() {
     document.querySelector(".games__played").textContent = games.length;
 
     document.querySelector(".games__wins").textContent = totalWins;
-    document.querySelector(".games__winratio").textContent = (totalWins/games.length).toFixed(2);
+    document.querySelector(".games__winratio").textContent = ((totalWins/games.length)*100).toFixed(2);
 
     document.querySelector(".games__losses").textContent = games.length - totalWins;
-    document.querySelector(".games__lossratio").textContent = (1 - totalWins/games.length).toFixed(2);
+    document.querySelector(".games__lossratio").textContent = ((1 - totalWins/games.length)*100).toFixed(2);
 
     // Núllstillum breytur
     playerWins = 0;
