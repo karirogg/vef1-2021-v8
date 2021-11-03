@@ -135,7 +135,7 @@ function finishGame() {
 
     const newestGame = games[games.length-1];
 
-    const gameDescription = el("li", `${newestGame.win ? "Þú vannst" : "Tölva vann"} ${newestGame.player}–${newestGame.computer}`);
+    const gameDescription = el("li", `${newestGame.win ? "Þú vannst" : "Tölva vann"} ${newestGame.player} – ${newestGame.computer}`);
     gamesList.appendChild(gameDescription);
 
     document.querySelector(".games__played").textContent = games.length;
